@@ -1,0 +1,63 @@
+:root {
+  --highlight: rgb(2, 209, 228);
+}
+
+body {
+  font-family: sans-serif;
+  text-align: center;
+  padding: 15px 3%;
+}
+
+h2 {
+  color: #777;
+}
+
+input {
+  margin-bottom: 35px;
+  padding: 10px 20px;
+  font-size: 1.1rem;
+  outline-color: var(--highlight);
+  color: #777;
+}
+
+input::placeholder {
+  color: #aaa;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul li {
+  background: #ccc;
+  padding: 10px;
+  display: flex;
+  border-radius: 4px;
+  margin-bottom: 15px;
+}
+
+ul li span {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #555;
+  font-size: 1.2rem;
+}
+
+ul li button {
+  padding: 20px 10px;
+  height: 100%;
+  border-radius: 4px;
+  border: none;
+  background: var(--highlight);
+  color: #fff;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+ul li button:hover {
+  background: rgb(0, 200, 218);
+}

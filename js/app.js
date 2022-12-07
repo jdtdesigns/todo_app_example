@@ -1,5 +1,5 @@
-var input = document.querySelector('#todo-input');
-var output = document.querySelector('#todo-output');
+var input = $('#todo-input');
+var output = $('#todo-output');
 
 function saveTodos(arr) {
   localStorage.setItem('todos', JSON.stringify(arr));
@@ -12,14 +12,14 @@ function getTodos() {
 function displayTodos() {
   var todos = getTodos();
 
-  output.innerHTML = '';
+  output.html('');
 
   if (!todos.length) {
-    output.innerHTML = '<p>No todos have been added.</p>';
+    output.html('<p>No todos have been added.</p>');
   }
 
-  todos.forEach(function (todo, index) {
-    output.insertAdjacentHTML('afterbegin', `
+  $.each(todos, function (index, todo) {
+    output.prepend(`
     <li>
       <span>${todo}</span>
       <button data-index="${index}">Complete</button>
@@ -33,36 +33,33 @@ function addTodo(event) {
 
   if (keyPressed === 13) {
     var todos = getTodos();
-    var todoText = input.value;
+    var todoText = input.val();
 
     if (!todoText) return;
 
     todos.push(todoText);
     saveTodos(todos);
 
-    input.value = '';
+    input.val('');
 
     displayTodos();
   }
 }
 
-function deleteTodo(event) {
-  var el = event.target;
+function deleteTodo() {
+  var btn = $(this);
+  var todos = getTodos();
+  var todoIndex = btn.data('index');
 
-  if (el.tagName === 'BUTTON') {
-    var todos = getTodos();
-    var todoIndex = el.dataset.index;
+  todos.splice(todoIndex, 1);
+  saveTodos(todos);
 
-    todos.splice(todoIndex, 1);
-    saveTodos(todos);
-
-    displayTodos();
-  }
+  displayTodos();
 }
 
 function init() {
-  input.addEventListener('keydown', addTodo);
-  output.addEventListener('click', deleteTodo);
+  input.keydown(addTodo);
+  output.on('click', 'button', deleteTodo);
 
   displayTodos();
 }
